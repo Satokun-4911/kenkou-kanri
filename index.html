@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>⏰ アラーム付きデジタル時計</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; background: #f0f0f0; }
+    #clock { font-size: 64px; font-weight: bold; color: #333; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 10px; }
+    .alarm-setup, #alarmList li { max-width: 400px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .alarm-setup label { font-size: 16px; margin-top: 10px; display: block; }
+    .alarm-setup input, .alarm-setup select, .alarm-setup button { width: 100%; font-size: 18px; padding: 10px; margin: 5px 0; box-sizing: border-box; }
+    #alarmList { list-style: none; padding: 0; margin-top: 20px; }
+    .alarm-popup { position: fixed; top: 30%; left: 50%; transform: translate(-50%, -30%); background-color: #fff; border: 3px solid #f00; border-radius: 12px; padding: 24px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); text-align: center; z-index: 9999; }
+    .alarm-title { font-size: 1.5em; font-weight: bold; margin-bottom: 12px; }
+    .alarm-time { font-size: 2.5em; font-family: 'Courier New', monospace; margin-bottom: 20px; }
+    .stop-button { background-color: #ff3b3b; color: white; font-size: 1.4em; padding: 12px 32px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); transition: transform 0.1s ease; }
+    .stop-button:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <h1>⏰ アラーム付きデジタル時計</h1>
+  <div id="clock">--:--:--</div>
+
+  <section class="alarm-setup">
+    <label for="alarmTime">🕒 アラーム時刻</label>
+    <input type="time" id="alarmTime">
+    <label for="alarmLabel">📝 アラーム名</label>
+    <input type="text" id="alarmLabel" placeholder="例：薬・会議・リマインダー">
+    <label for="alarmSound">🔔 アラーム音</label>
+    <select id="alarmSound"></select>
+    <label for="notifyType">📤 通知方法</label>
+    <select id="notifyType">
+      <option value="slack">Slack通知</option>
+      <option value="mail">メール通知</option>
+      <option value="none">通知なし</option>
+    </select>
+    <label for="mailAddress">📧 宛先メールアドレス</label>
+    <select id="mailAddress">
+      <option value="ep2a2ahg@gmail.com">ep2a2ahg@gmail.com</option>
+      <option value="ep2a2ahg@yahoo.co.jp">ep2a2ahg@yahoo.co.jp</option>
+      <option value="ep2a2ahg@hotmail.com">ep2a2ahg@hotmail.com</option>
+      <option value="ep2a2ahg@outlook.jp">ep2a2ahg@outlook.jp</option>
+    </select>
+    <button id="addAlarmBtn">追加</button>
+  </section>
+
+  <ul id="alarmList"></ul>
+  <audio id="alarmAudio" preload="auto" loop></audio>
+
+  <script>
+    const MAIL_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbybP7kL_m9npaYbM4Y9-X7ymfPD4930i015V1aV2OOQ0j8Obx275ZcXe0UQNYaP25g5YA/exec";
+    const alarmTimes = [];
+    const clockElement = document.getElementById("clock");
+    const alarmAudio = document.getElementById("alarmAudio");
+    const alarmList = document.getElementById("alarmList");
+    const soundSelector = document.getElementById("alarmSound");
+    const addAlarmBtn = document.getElementById("addAlarmBtn");
+
+    const baseURL = "./notification-sounds/";
+    const sounds = [
+      { label: "🚃 電車通過1", file: "densha1.mp3" },
+      { label: "🚃 電車通過2", file: "densha2.mp3" },
+      { label: "🚃 電車通過3", file: "densha3.mp3" },
+      { label: "📞 電話の着信音", file: "denwa.mp3" },
+      { label: "🎆 花火大会", file: "hanabi.mp3" },
+      { label: "🕰️ 振り子時計", file: "furikodokei.mp3" },
+      { label: "🕰️ 柱時計の鐘", file: "hasiradokei.mp3" },
+      { label: "🕊️ 鳩時計", file: "hatodokei.mp3" },
+      { label: "⚠️ 警告音1", file: "keikoku1.mp3" },
+      { label: "⚠️ 警告音2", file: "keikou2.mp3" },
+      { label: "🔔 鈴を鳴らす", file: "suzuon.mp3" },
+      { label: "⏰ 目覚まし時計", file: "mezamasi.mp3" },
+      { label: "🌸 春の小川", file: "harunoogawa.mp3" },
+      { label: "🔕 ミュート", file: "muon.mp3" }
+    ];
+
+    sounds.forEach(sound => {
+      const option = document.createElement("option");
+      option.textContent = sound.label;
+      option.value = baseURL + sound.file;
+      soundSelector.appendChild(option);
+    });
+
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      clockElement.textContent = `${h}:${m}:${s}`;
+      const nowTime = `${h}:${m}:${s}`;
+      alarmTimes.forEach(alarm => {
+        if (alarm.enabled && !alarm.triggered && alarm.time === nowTime) {
+          triggerAlarm(alarm);
+          alarm.triggered = true;
+        }
+        if (alarm.triggered && alarm.time !== nowTime) {
+          alarm.triggered = false;
+        }
+      });
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    addAlarmBtn.addEventListener("click", () => {
+  const timeInput = document.getElementById("alarmTime").value;
+  const labelInput = document.getElementById("alarmLabel").value || "アラーム";
+  const soundInput = document.getElementById("alarmSound").value;
+  const notifyType = document.getElementById("notifyType").value;
+
+  if (!timeInput || !soundInput) {
+    alert("時刻とアラーム音を選択してください");
+    return;
+  }
+
+  const time = timeInput + ":00";
+  const id = Date.now().toString();
+
+  alarmAudio.src = soundInput;
+  alarmAudio.play().then(() => {
+    alarmAudio.pause();
+    alarmAudio.currentTime = 0;
+  }).catch(() => console.warn("音声再生許可NG"));
+
+  alarmTimes.push({
+    id: id,
+    time: time,
+    label: labelInput,
+    sound: soundInput,
+    enabled: true,
+    triggered: false,
+    soundLabel: soundSelector.options[soundSelector.selectedIndex].text,
+    notifyType: notifyType
+  });
+
+  renderAlarmList();
+});
+      
+function renderAlarmList() {
+  alarmList.innerHTML = "";
+  alarmTimes.forEach((alarm, index) => {
+    const li = document.createElement("li");
+    let icon = "🔕";
+    if (alarm.notifyType === "mail") icon = "📧";
+    else if (alarm.notifyType === "slack") icon = "💬";
+    li.textContent = `${alarm.time.slice(0,5)} ${icon} ${alarm.label} ${alarm.soundLabel}`;
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "削除";
+    deleteBtn.style.marginLeft = "10px";
+    deleteBtn.onclick = () => {
+      alarmTimes.splice(index, 1);
+      renderAlarmList();
+    };
+    li.appendChild(deleteBtn);
+    alarmList.appendChild(li);
+  });
+}
+
+function triggerAlarm(alarm) {
+  const notifyType = alarm.notifyType || "none"; // ← alarmに保存された通知タイプを使う
+  const mailAddress = document.getElementById("mailAddress").value;
+
+  let icon = "🔕";
+  if (notifyType === "mail") icon = "📧";
+  else if (notifyType === "slack") icon = "💬";
+  const labelWithIcon = `${icon} ${alarm.label}`;
+
+  const popup = document.createElement("div");
+  popup.className = "alarm-popup";
+  popup.innerHTML = `
+    <div class="alarm-title">${labelWithIcon}</div>
+    <div class="alarm-time">${alarm.time.slice(0,5)}</div>
+    <button class="stop-button">停止</button>
+  `;
+  document.body.appendChild(popup);
+
+  alarmAudio.src = alarm.sound;
+  alarmAudio.play();
+
+  if (notifyType !== "none") {
+    const payload = {
+      type: notifyType,
+      label: labelWithIcon,
+      time: alarm.time.slice(0,5),
+      id: alarm.id
+    };
+    if (notifyType === "mail") {
+      payload.email = mailAddress;
+    }
+
+    fetch(MAIL_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(res => console.log("通知成功"))
+    .catch(err => console.error("通知失敗", err));
+  }
+
+  popup.querySelector(".stop-button").onclick = () => {
+    alarmAudio.pause();
+    alarmAudio.currentTime = 0;
+    popup.remove();
+  };
+}
+</script>

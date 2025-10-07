@@ -1,0 +1,2768 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TinyURL OpenAPI",
+        "description": "<p>The TinyURL API allows you to programmatically access our service to shorten long URLs into TinyURLs. This customization helps you to fully realize the potential of TinyURL through automated link customization.</p>\n                    <h2>Authentication</h2>\n                    <p>This API is only available to authorized users. It requires an API token that is used for http bearer authentication as described in the OpenAPI specification. To create an API token for TinyURL, please login to your account and visit <a href='/app/settings/api' target='_blank'>API Settings</a>. This token should be kept secret to prevent unauthorized use of your account. If you lose your token or believe that it may have been stolen, please remove the old token and create a new one.</p>",
+        "termsOfService": "https://tinyurl.com/app/terms",
+        "contact": {
+            "name": "TinyURL Support",
+            "url": "https://tinyurl.com/app/help"
+        },
+        "version": "2.4.2"
+    },
+    "servers": [
+        {
+            "url": "https://api.tinyurl.com",
+            "description": "Primary"
+        }
+    ],
+    "paths": {
+        "/analytics/raw/json": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return raw analytics logs",
+                "description": "Return raw analytics logs",
+                "operationId": "RawLogsAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RawLogsAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/timeline": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return timeline analytics",
+                "description": "Return timeline analytics",
+                "operationId": "TimelineAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/interval"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TimelineAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/general": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return browser, os and device analytics",
+                "description": "Return browser, os and device analytics",
+                "operationId": "GeneralAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GeneralAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/popularity/weekday": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return week days popularity analytics",
+                "description": "Return week days popularity analytics",
+                "operationId": "WeekdaysPopularityAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WeekdaysPopularityAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/popularity/hour": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return hour popularity analytics",
+                "description": "Return hour popularity analytics",
+                "operationId": "HoursPopularityAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HoursPopularityAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/sources/top": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return top sources analytics",
+                "description": "Return top sources analytics",
+                "operationId": "TopSourcesAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TopSourcesAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/languages/top": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return top languages analytics",
+                "description": "Return top languages analytics",
+                "operationId": "TopLanguagesAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TopLanguagesAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/location/{region}": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Return location analytics",
+                "description": "Return locations analytics",
+                "operationId": "LocationAnalytics",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/from"
+                    },
+                    {
+                        "$ref": "#/components/parameters/to"
+                    },
+                    {
+                        "$ref": "#/components/parameters/region"
+                    },
+                    {
+                        "$ref": "#/components/parameters/alias"
+                    },
+                    {
+                        "$ref": "#/components/parameters/tag"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LocationAnalyticsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/bulk": {
+            "post": {
+                "tags": [
+                    "Bulk"
+                ],
+                "summary": "Create a new TinyURL processing batch",
+                "description": "Crteates new batch",
+                "operationId": "bulkTinyUrlRequest",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BulkStatusResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/bulk/{bulkRequestId}/status": {
+            "get": {
+                "tags": [
+                    "Bulk"
+                ],
+                "summary": "Return a bulk request status",
+                "description": "Return a bulk request status",
+                "operationId": "bulkRequestStatus",
+                "parameters": [
+                    {
+                        "name": "bulkRequestId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BulkStatusResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/bulk/{bulkRequestId}/report": {
+            "get": {
+                "tags": [
+                    "Bulk"
+                ],
+                "summary": "Return a bulk request report",
+                "description": "Return a bulk request report",
+                "operationId": "bulkRequestReport",
+                "parameters": [
+                    {
+                        "name": "bulkRequestId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BulkReportResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/create": {
+            "post": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Create a new TinyURL",
+                "description": "Take a long URL and shorten it into a new TinyURL.",
+                "operationId": "createTinyUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTinyURLRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UrlAliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/update": {
+            "patch": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Update TinyURLs alias, tags, stats options",
+                "description": "Endpoint allows to update TinyURL alias, tags, stats settings",
+                "operationId": "updateTinyUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTinyURLRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/change": {
+            "patch": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Update TinyURLs long URL",
+                "description": "Endpoint allows to update TinyURL long URL",
+                "operationId": "changeTinyUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUrlRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UrlResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/alias/{domain}/{alias}": {
+            "get": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Receive TinyURL information",
+                "description": "Endpoint allows to receive TinyURL information",
+                "operationId": "getTinyUrl",
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "TinyURL domain",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "tinyurl.com"
+                        }
+                    },
+                    {
+                        "name": "alias",
+                        "in": "path",
+                        "description": "TinyURL alias",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "example-alias"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UrlAliasHitsBillableResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Delete TinyURL",
+                "description": "Endpoint allows to delete TinyURL",
+                "operationId": "deleteTinyUrl",
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "TinyURL domain",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "tinyurl.com"
+                        }
+                    },
+                    {
+                        "name": "alias",
+                        "in": "path",
+                        "description": "TinyURL alias",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "example-alias"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UrlAliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/urls/{type}": {
+            "get": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Get a list of TinyURLs",
+                "description": "Endpoint allows to get a list of TinyURLs",
+                "operationId": "getTinyUrlsList",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "aliases list type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "available",
+                                "archived"
+                            ],
+                            "example": "available"
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "Datetime, indicating that only TinyURLs created after the datetime will be selected.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2022-08-11 14:00:00 CDT"
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "Datetime, indicating that only TinyURLs created before the datetime will be selected.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2024-09-23 14:00:00 CDT"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search for tag or alias",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^(alias|tag):"
+                        },
+                        "examples": {
+                            "alias": {
+                                "summary": "Search by alias",
+                                "value": "alias:custom-alias"
+                            },
+                            "tag": {
+                                "summary": "Search by tag",
+                                "value": "tag:tag-name"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/urls/{type}/count": {
+            "get": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Get count of TinyURLs",
+                "description": "Endpoint allows to get a count of TinyURLs",
+                "operationId": "getTinyUrlsCount",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "aliases list type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "available",
+                                "archived"
+                            ],
+                            "example": "available"
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "Datetime, indicating that only TinyURLs created after the datetime will be selected.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2022-08-11 14:00:00 CDT"
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "Datetime, indicating that only TinyURLs created before the datetime will be selected.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2024-09-23 14:00:00 CDT"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search for tag or alias",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^(alias|tag):"
+                        },
+                        "examples": {
+                            "alias": {
+                                "summary": "Search by alias",
+                                "value": "alias:custom-alias"
+                            },
+                            "tag": {
+                                "summary": "Search by tag",
+                                "value": "tag:tag-name"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AliasesCountResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/archive": {
+            "patch": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Archive/unarchive TinyURL",
+                "description": "Endpoint allows to archive/unarchive TinyURL",
+                "operationId": "archiveTinyUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sourceTinyURLRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/status": {
+            "patch": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Enable/disable TinyURL analytics collecting",
+                "description": "Endpoint allows to manage TinyURL analytics collecting",
+                "operationId": "analyticsStatusTinyUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateAnalyticsStatusRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        },
+        "/analytics/sharing": {
+            "patch": {
+                "tags": [
+                    "TinyURL"
+                ],
+                "summary": "Enable/disable TinyURL analytics sharing",
+                "description": "Endpoint allows to manage TinyURL analytics sharing",
+                "operationId": "analyticsSharingTinyUrl",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateAnalyticsSharingRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AliasResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "405": {
+                        "$ref": "#/components/responses/PermissionDenied"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "tokenAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RawLogsAnalyticsData": {
+                "title": "Raw analytics logs data",
+                "properties": {
+                    "datetime": {
+                        "type": "string",
+                        "example": "2020-12-21 14:10:00"
+                    },
+                    "tiny_url": {
+                        "type": "string",
+                        "example": "https://tinyurl.com/alias-name"
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "https://domain.com/target/url"
+                    },
+                    "referer": {
+                        "type": "string",
+                        "example": null,
+                        "nullable": true
+                    },
+                    "ip": {
+                        "type": "string",
+                        "example": "1.2.3.0"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "us",
+                        "nullable": true
+                    },
+                    "is_bot": {
+                        "type": "boolean",
+                        "example": false,
+                        "nullable": true
+                    },
+                    "browser": {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Chrome",
+                                "nullable": true
+                            },
+                            "version": {
+                                "type": "string",
+                                "example": "109.0",
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "os": {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Mac",
+                                "nullable": true
+                            },
+                            "version": {
+                                "type": "string",
+                                "example": "10.15",
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "device": {
+                        "type": "string",
+                        "example": "desktop",
+                        "nullable": true
+                    },
+                    "language": {
+                        "type": "string",
+                        "example": "en",
+                        "nullable": true
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "tag"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "RawLogsAnalyticsResponse": {
+                "title": "Raw analytics logs API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/RawLogsAnalyticsData"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "TimelineAnalyticsData": {
+                "title": "Timeline analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "datetime": {
+                                    "type": "string",
+                                    "example": "2020-12-21 14:10:00"
+                                },
+                                "total": {
+                                    "type": "integer",
+                                    "default": 10020
+                                },
+                                "unique": {
+                                    "type": "integer",
+                                    "default": 6000
+                                },
+                                "human": {
+                                    "type": "integer",
+                                    "default": 9123
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "interval": {
+                        "description": "Used interval",
+                        "type": "string",
+                        "enum": [
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month"
+                        ]
+                    },
+                    "timezone": {
+                        "description": "Used time zone",
+                        "type": "string",
+                        "example": "-08:00"
+                    }
+                },
+                "type": "object"
+            },
+            "TimelineAnalyticsResponse": {
+                "title": "Timeline analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/TimelineAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "BrowserAnalyticsData": {
+                "title": "Browser analytics data",
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "example": "Chrome"
+                        },
+                        "value": {
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "children": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "80"
+                                    },
+                                    "value": {
+                                        "type": "integer",
+                                        "default": 0
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "OsAnalyticsData": {
+                "title": "OS analytics data",
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "example": "Windows"
+                        },
+                        "value": {
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "children": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "10"
+                                    },
+                                    "value": {
+                                        "type": "integer",
+                                        "default": 0
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "DeviceAnalyticsData": {
+                "title": "Device analytics data",
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "example": "Desktop"
+                        },
+                        "value": {
+                            "type": "integer",
+                            "default": 0
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "GeneralAnalyticsData": {
+                "title": "Timeline analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "browser": {
+                                    "$ref": "#/components/schemas/BrowserAnalyticsData"
+                                },
+                                "os": {
+                                    "$ref": "#/components/schemas/OsAnalyticsData"
+                                },
+                                "device": {
+                                    "$ref": "#/components/schemas/DeviceAnalyticsData"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "total": {
+                        "type": "integer",
+                        "default": 0
+                    }
+                },
+                "type": "object"
+            },
+            "GeneralAnalyticsResponse": {
+                "title": "General analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/GeneralAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "WeekdaysPopularityAnalyticsData": {
+                "title": "Weekdays popularity analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "maxItems": 7,
+                        "minItems": 7,
+                        "example": "[12, 0, 34, 0, 56, 0, 7]"
+                    }
+                },
+                "type": "object"
+            },
+            "WeekdaysPopularityAnalyticsResponse": {
+                "title": "Weekdays popularity analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/WeekdaysPopularityAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "HoursPopularityAnalyticsData": {
+                "title": "Hours popularity analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "maxItems": 24,
+                        "minItems": 24,
+                        "example": "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]"
+                    }
+                },
+                "type": "object"
+            },
+            "HoursPopularityAnalyticsResponse": {
+                "title": "Hours popularity analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/HoursPopularityAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "TopSourcesAnalyticsData": {
+                "title": "Top sources analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "source": {
+                                    "type": "string",
+                                    "example": "google.com"
+                                },
+                                "hits": {
+                                    "type": "integer",
+                                    "example": 23
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "direct": {
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 123
+                    }
+                },
+                "type": "object"
+            },
+            "TopSourcesAnalyticsResponse": {
+                "title": "Top sources analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/TopSourcesAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "TopLanguagesAnalyticsData": {
+                "title": "Top languages analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "language": {
+                                    "type": "string",
+                                    "example": "en"
+                                },
+                                "hits": {
+                                    "type": "integer",
+                                    "example": 23
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "none": {
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 123
+                    }
+                },
+                "type": "object"
+            },
+            "TopLanguagesAnalyticsResponse": {
+                "title": "Top languages analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/TopLanguagesAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "LocationAnalyticsData": {
+                "title": "Location analytics data",
+                "properties": {
+                    "dataset": {
+                        "description": "Dataset items",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "example": "en"
+                                },
+                                "value": {
+                                    "type": "integer",
+                                    "example": 23
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "none": {
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 123
+                    }
+                },
+                "type": "object"
+            },
+            "LocationAnalyticsResponse": {
+                "title": "Location analytics API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/LocationAnalyticsData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "BulkRequestItem": {
+                "title": "Bulk Request Item",
+                "oneOf": [
+                    {
+                        "title": "Create TinyUrl Bulk Request Item",
+                        "required": [
+                            "operation"
+                        ],
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "operation": {
+                                        "description": "Requested operation type. Should be set to 'create'",
+                                        "type": "string",
+                                        "example": "create"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/UserMetadata"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CreateTinyURLRequest"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Update TinyUrl Bulk Request Item",
+                        "required": [
+                            "operation"
+                        ],
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "operation": {
+                                        "description": "Requested operation type. Should be set to 'update'",
+                                        "type": "string",
+                                        "example": "update"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/UserMetadata"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/components/schemas/UpdateTinyURLRequest"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Update Long Url Bulk Request Item",
+                        "required": [
+                            "operation"
+                        ],
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "operation": {
+                                        "description": "Requested operation type. Should be set to 'change'",
+                                        "type": "string",
+                                        "example": "change"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/UserMetadata"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/components/schemas/UpdateUrlRequest"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Delete TinyURL Bulk Request Item",
+                        "required": [
+                            "operation"
+                        ],
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "operation": {
+                                        "description": "Requested operation type. Should be set to 'delete'",
+                                        "type": "string",
+                                        "example": "delete"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/UserMetadata"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/components/schemas/sourceTinyURLRequest"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Archive TinyURL Bulk Request Item",
+                        "required": [
+                            "operation"
+                        ],
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "operation": {
+                                        "description": "Requested operation type. Should be set to 'archive'",
+                                        "type": "string",
+                                        "example": "archive"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/UserMetadata"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/components/schemas/sourceTinyURLRequest"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Unarchive TinyURL Bulk Request Item",
+                        "required": [
+                            "operation"
+                        ],
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "operation": {
+                                        "description": "Requested operation type. Should be set to 'unarchive'",
+                                        "type": "string",
+                                        "example": "unarchive"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/UserMetadata"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/components/schemas/sourceTinyURLRequest"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "BulkRequest": {
+                "title": "Bulk request",
+                "required": [
+                    "items"
+                ],
+                "properties": {
+                    "domain": {
+                        "description": "Default domain",
+                        "type": "string"
+                    },
+                    "items": {
+                        "description": "Array of items",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BulkRequestItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "BulkStatusData": {
+                "title": "Bulk status data",
+                "properties": {
+                    "id": {
+                        "description": "Bulk requst ID",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "description": "Bulk requst status. Possible statuses:\n           <ul>\n               <li><b>0</b> - New</li>\n               <li><b>1</b> - Processing</li>\n               <li><b>2</b> - Processed</li>\n           </ul>\n       ",
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "description": "Date and time when bulk requst was created",
+                        "type": "string",
+                        "example": "2021-07-08 10:29:57"
+                    },
+                    "updated_at": {
+                        "description": "Date abd time when bulk requst was updated last time",
+                        "type": "string",
+                        "example": "2021-07-08 11:29:57"
+                    },
+                    "total": {
+                        "description": "Total items count in bulk request",
+                        "type": "integer",
+                        "example": "999"
+                    },
+                    "success": {
+                        "description": "Successfully processed items count",
+                        "type": "integer",
+                        "example": "15"
+                    },
+                    "failed": {
+                        "description": "Failed items count",
+                        "type": "integer",
+                        "example": "3"
+                    }
+                },
+                "type": "object"
+            },
+            "BulkStatusResponse": {
+                "title": "Bulk API status response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/BulkStatusData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "UserMetadata": {
+                "title": "Metadata",
+                "oneOf": [
+                    {
+                        "description": "String value",
+                        "type": "string",
+                        "example": "link-123"
+                    },
+                    {
+                        "description": "Numeric value",
+                        "type": "number",
+                        "example": "12.5"
+                    },
+                    {
+                        "description": "Boolean value",
+                        "type": "boolean",
+                        "example": "true"
+                    }
+                ]
+            },
+            "BulkReportData": {
+                "title": "Bulk API report data",
+                "properties": {
+                    "operation": {
+                        "description": "operation type",
+                        "type": "string",
+                        "enum": [
+                            "create",
+                            "update",
+                            "change",
+                            "delete",
+                            "archive",
+                            "unarchive"
+                        ]
+                    },
+                    "domain": {
+                        "description": "Requested domain",
+                        "type": "string",
+                        "example": "tinyurl.com"
+                    },
+                    "alias": {
+                        "description": "Requested alias",
+                        "type": "string",
+                        "example": "googlecom"
+                    },
+                    "url": {
+                        "description": "Shortened long URL",
+                        "type": "string",
+                        "example": "http://google.com"
+                    },
+                    "tinyurl": {
+                        "description": "Created TinyURL",
+                        "type": "string",
+                        "example": "http://tinyurl.com/googlecom"
+                    },
+                    "metadata": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserMetadata"
+                        }
+                    },
+                    "status": {
+                        "description": "Operation status",
+                        "type": "string",
+                        "enum": [
+                            "success",
+                            "failed"
+                        ]
+                    },
+                    "expires_at": {
+                        "description": "TinyURL expiration in ISO8601 format",
+                        "type": "string",
+                        "example": "2024-10-25 10:11:12"
+                    },
+                    "comment": {
+                        "description": "Operation comment if operation failed",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "BulkReportResponse": {
+                "title": "Bulk API report response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/BulkReportData"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "BaseResponse": {
+                "properties": {
+                    "code": {
+                        "description": "Operation result code. Possible codes:\n                <ul>\n                  <li><b>0</b> - OK</li>\n                  <li><b>1</b> - Not authorized</li>\n                  <li><b>2</b> - Not implemented</li>\n                  <li><b>3</b> - Forbidden</li>\n                  <li><b>4</b> - Permission denied</li>\n                  <li><b>5</b> - Validation fails</li>\n                  <li><b>6</b> - Not found</li>\n                  <li><b>7</b> - Internal server error</li>\n              </ul>",
+                        "type": "integer"
+                    },
+                    "errors": {
+                        "description": "Errors list",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": "[]"
+                    }
+                },
+                "type": "object"
+            },
+            "GenericResponse": {
+                "title": "Generic API response",
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "description": "Response data",
+                                "nullable": true,
+                                "oneOf": [
+                                    {
+                                        "type": "array",
+                                        "items": {}
+                                    },
+                                    {
+                                        "type": "object"
+                                    },
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "integer"
+                                    },
+                                    {
+                                        "type": "number"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "AliasData": {
+                "title": "Alias data",
+                "properties": {
+                    "domain": {
+                        "description": "Target domain",
+                        "type": "string",
+                        "example": "tinyurl.com"
+                    },
+                    "alias": {
+                        "description": "Alias name",
+                        "type": "string",
+                        "example": "example-alias"
+                    },
+                    "deleted": {
+                        "description": "Is TinyURL deleted?",
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "archived": {
+                        "description": "Is TinyURL archived?",
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "tags": {
+                        "description": "Tags",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": [
+                            "tag1",
+                            "tag2"
+                        ]
+                    },
+                    "analytics": {
+                        "description": "Analytics settings",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "example": "true"
+                                },
+                                "public": {
+                                    "type": "boolean",
+                                    "example": "false"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "tiny_url": {
+                        "description": "Short URL",
+                        "type": "string",
+                        "example": "https://tinyurl.com/example-alias"
+                    },
+                    "created_at": {
+                        "description": "Alias createion datetime",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2022-11-24T19:41:23+00:00"
+                    },
+                    "expires_at": {
+                        "description": "Alias expiration datetime",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": null,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AliasesCountData": {
+                "title": "Alias count data",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "example": "10"
+                    }
+                },
+                "type": "object"
+            },
+            "AliasResponse": {
+                "title": "Alias API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/AliasData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "AliasesCountResponse": {
+                "title": "Aliases count API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/AliasesCountData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "UrlData": {
+                "title": "Long URL data",
+                "properties": {
+                    "url": {
+                        "description": "Long URL",
+                        "type": "string",
+                        "example": "http://google.com"
+                    }
+                },
+                "type": "object"
+            },
+            "BillableData": {
+                "title": "User and Team data",
+                "properties": {
+                    "user": {
+                        "properties": {
+                            "name": {
+                                "description": "User name",
+                                "type": "string",
+                                "example": "John Wick"
+                            },
+                            "email": {
+                                "description": "User email",
+                                "type": "string",
+                                "example": "john.wick@mail.com"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "team": {
+                        "properties": {
+                            "name": {
+                                "description": "Team name",
+                                "type": "string",
+                                "example": "Team #1"
+                            },
+                            "slug": {
+                                "description": "Team slug",
+                                "type": "string",
+                                "example": "team1"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "HitsData": {
+                "title": "Hits data",
+                "properties": {
+                    "hits": {
+                        "description": "Hits count",
+                        "type": "integer",
+                        "example": "1024"
+                    }
+                },
+                "type": "object"
+            },
+            "UrlResponse": {
+                "title": "Url API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/UrlData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "UrlAliasData": {
+                "title": "Url and alias data",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/AliasData"
+                    },
+                    {
+                        "$ref": "#/components/schemas/UrlData"
+                    }
+                ]
+            },
+            "UrlAliasResponse": {
+                "title": "Alias with long URL API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/UrlAliasData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "UrlAliasHitsBillableData": {
+                "title": "Url and alias data",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/AliasData"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BillableData"
+                    },
+                    {
+                        "$ref": "#/components/schemas/HitsData"
+                    },
+                    {
+                        "$ref": "#/components/schemas/UrlData"
+                    }
+                ]
+            },
+            "UrlAliasHitsBillableResponse": {
+                "title": "Url API response",
+                "allOf": [
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/UrlAliasHitsBillableData"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BaseResponse"
+                    }
+                ]
+            },
+            "CreateTinyURLRequest": {
+                "title": "Create TinyURL Request",
+                "required": [
+                    "url"
+                ],
+                "properties": {
+                    "url": {
+                        "description": "The long URL that will be shortened",
+                        "type": "string",
+                        "example": "https://www.example.com/my-really-long-link-that-I-need-to-shorten/84378949"
+                    },
+                    "domain": {
+                        "description": "The domain you would like the TinyURL to use. Select from our free domain tinyurl.com or subscribe and use our <a href='/app/settings/branded-domains' target='_blank'>branded domains.</a>\n                <ul><li>tinyurl.com</li></ul>",
+                        "type": "string",
+                        "default": "tinyurl.com",
+                        "example": "tinyurl.com"
+                    },
+                    "alias": {
+                        "description": "A short string of characters to use in the TinyURL. If ommitted, one will be randomly generated. When using a branded domain, this has a minimum length of 1 character",
+                        "type": "string",
+                        "maxLength": 30,
+                        "minLength": 5,
+                        "example": "myexamplelink"
+                    },
+                    "tags": {
+                        "description": "Tags group and categorize TinyURLs together.",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxLength": 45
+                        },
+                        "example": "example,link"
+                    },
+                    "expires_at": {
+                        "description": "TinyURL expiration in ISO8601 format.<br>Set to null so TinyURL never expires",
+                        "type": "string",
+                        "example": "2024-10-25 10:11:12",
+                        "nullable": true
+                    },
+                    "description": {
+                        "description": "The alias description",
+                        "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 3,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTinyURLRequest": {
+                "title": "Update TinyURL Request",
+                "required": [
+                    "domain",
+                    "alias"
+                ],
+                "properties": {
+                    "domain": {
+                        "description": "The existing domain for this TinyURL",
+                        "type": "string",
+                        "default": "tinyurl.com",
+                        "example": "my-custom-domain.com"
+                    },
+                    "alias": {
+                        "description": "The existing alias for this TinyURL",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "promotion2020"
+                    },
+                    "new_domain": {
+                        "description": "The new domain you would like to switch to",
+                        "type": "string",
+                        "example": "example.com"
+                    },
+                    "new_alias": {
+                        "description": "The new alias you would like to switch to",
+                        "type": "string",
+                        "maxLength": 30,
+                        "minLength": 1,
+                        "example": "promotion2023"
+                    },
+                    "new_stats": {
+                        "description": "Turns on / off the collection of click analytics",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "new_tags": {
+                        "description": "Tags you would like this TinyURL to have. Overwrites the existing tags.",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxLength": 45
+                        },
+                        "example": [
+                            "new tag",
+                            "example"
+                        ]
+                    },
+                    "new_expires_at": {
+                        "description": "TinyURL expiration in ISO8601 format.<br>Set to null so TinyURL never expires",
+                        "type": "string",
+                        "example": "P10DT4H",
+                        "nullable": true
+                    },
+                    "new_description": {
+                        "description": "The new description",
+                        "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 3,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "sourceTinyURLRequest": {
+                "title": "Source TinyUrl Request",
+                "required": [
+                    "domain",
+                    "alias"
+                ],
+                "properties": {
+                    "domain": {
+                        "description": "Source domain",
+                        "type": "string",
+                        "example": "tinyurl.com"
+                    },
+                    "alias": {
+                        "description": "Source alias",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "example-alias"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUrlRequest": {
+                "title": "Update Long Url Request",
+                "required": [
+                    "domain",
+                    "alias",
+                    "url"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "url": {
+                                "description": "New long URL",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/sourceTinyURLRequest"
+                    }
+                ]
+            },
+            "updateAnalyticsStatusRequest": {
+                "title": "Analytics Status Request",
+                "required": [
+                    "enabled"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "enabled": {
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/sourceTinyURLRequest"
+                    }
+                ]
+            },
+            "updateAnalyticsSharingRequest": {
+                "title": "Analytics Sharing Request",
+                "required": [
+                    "public"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "public": {
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/sourceTinyURLRequest"
+                    }
+                ]
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "You are not authorized to use to access this API endpoint or resource. Please check your API token",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GenericResponse"
+                        },
+                        "example": {
+                            "code": 1,
+                            "data": [],
+                            "errors": [
+                                "Unauthorized"
+                            ]
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "This resource could not be found 404",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GenericResponse"
+                        }
+                    }
+                }
+            },
+            "PermissionDenied": {
+                "description": "You do not have permission to access this resource 405",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GenericResponse"
+                        },
+                        "example": {
+                            "code": 4,
+                            "data": [],
+                            "errors": [
+                                "Method not allowed"
+                            ]
+                        }
+                    }
+                }
+            },
+            "UnprocessableEntity": {
+                "description": "Validation failed on one of the properties, please check the errors in the response body.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GenericResponse"
+                        },
+                        "example": {
+                            "code": 5,
+                            "data": [],
+                            "errors": [
+                                "Invalid URL",
+                                "Alias field is too long"
+                            ]
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "There was an unexpected error processing your request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GenericResponse"
+                        },
+                        "example": {
+                            "code": 7,
+                            "data": [],
+                            "errors": [
+                                "Something went wrong"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "from": {
+                "name": "from",
+                "in": "query",
+                "description": "Datetime, indicating start datetime of analytics report.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "example": "2021-08-10T10:00:00-0800"
+            },
+            "to": {
+                "name": "to",
+                "in": "query",
+                "description": "Datetime, indicating end datetime of analytics report. Will default to current time.",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "example": "2021-08-11 14:00:00 CDT"
+            },
+            "interval": {
+                "name": "interval",
+                "in": "query",
+                "description": "Timeline interval.",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "minute",
+                        "hour",
+                        "day",
+                        "week",
+                        "month"
+                    ]
+                }
+            },
+            "region": {
+                "name": "region",
+                "in": "path",
+                "description": "Country Alpha-2 ISO 3166-1 code. Leave blank for countries",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "default": "world"
+                }
+            },
+            "alias": {
+                "name": "alias",
+                "in": "query",
+                "description": "TinyURL to get analytics for",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "tinyurl.com/myalias"
+            },
+            "tag": {
+                "name": "tag",
+                "in": "query",
+                "description": "Tag to get analytics for",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "mytag"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "tokenAuth": {
+                "type": "apiKey",
+                "name": "api_token",
+                "in": "query"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "TinyURL",
+            "description": "TinyURLs are short links that redirect to a longer link. These API endpoints allow you to shorten new links & modify how they function"
+        }
+    ]
+}

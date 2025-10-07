@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  .hidden {
+  display: none;
+}
   <meta charset="UTF-8">
   <title>⏰ アラーム付きデジタル時計</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  .hidden {
+  display: none;
+}
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; background: #f0f0f0; }
-    #clock { font-size: 48px; font-weight: bold; color: #333; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 10px; }
+    #clock { font-size: 64px; font-weight: bold; color: #333; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 10px; }
     .alarm-setup, #alarmList li { max-width: 400px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     .alarm-setup label { font-size: 16px; margin-top: 10px; display: block; }
     .alarm-setup input, .alarm-setup select, .alarm-setup button { width: 100%; font-size: 18px; padding: 10px; margin: 5px 0; box-sizing: border-box; }

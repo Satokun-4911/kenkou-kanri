@@ -103,20 +103,29 @@
       });
     }
 
-    setInterval(updateClock, 1000);
-    updateClock();
+document.addEventListener("DOMContentLoaded", () => {
+  const savedAlarms = JSON.parse(localStorage.getItem("alarmTimes") || "[]");
+  alarmTimes.push(...savedAlarms);
 
-    const params = new URLSearchParams(window.location.search);
-    const stopId = params.get("stop");
-    if (stopId) {
-      const target = alarmTimes.find(a => a.id === stopId);
-      if (target) {
-        alarmAudio.pause();
-        alarmAudio.currentTime = 0;
-        document.querySelectorAll(".alarm-popup").forEach(p => p.remove());
-        console.log(`アラーム ${stopId} を停止しました`);
-      }
+  const params = new URLSearchParams(window.location.search);
+  const stopId = params.get("stop");
+
+  if (stopId) {
+    const target = alarmTimes.find(a => a.id === stopId);
+    if (target) {
+      alarmAudio.pause();
+      alarmAudio.currentTime = 0;
+      document.querySelectorAll(".alarm-popup").forEach(p => p.remove());
+      console.log(`アラーム ${stopId} を停止しました`);
+    } else {
+      console.warn("該当アラームが見つかりません");
     }
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000); // ← ここに移動してOK！
+});
+    
      const notifySelector = document.getElementById("notifyType");
 const mailLabel = document.querySelector('label[for="mailAddress"]');
 const mailAddressSelector = document.getElementById("mailAddress");
@@ -150,15 +159,17 @@ updateMailVisibility(); // 初期表示にも対応
       }).catch(() => console.warn("音声再生許可NG"));
 
            alarmTimes.push({
-        id: id,
-        time: time,
-        label: labelInput,
-        sound: soundInput,
-        enabled: true,
-        triggered: false,
-        soundLabel: soundSelector.options[soundSelector.selectedIndex].text,
-        notifyType: notifyType
-      });
+  id: id,
+  time: time,
+  label: labelInput,
+  sound: soundInput,
+  enabled: true,
+  triggered: false,
+  soundLabel: soundSelector.options[soundSelector.selectedIndex].text,
+  notifyType: notifyType
+});
+
+localStorage.setItem("alarmTimes", JSON.stringify(alarmTimes)); 
 
       renderAlarmList();
     });
@@ -184,6 +195,7 @@ updateMailVisibility(); // 初期表示にも対応
     }
 
     function triggerAlarm(alarm) {
+      const stopLink = `${window.location.origin}?stop=${alarm.id}`;
       const notifyType = alarm.notifyType || "none";
       const mailAddress = document.getElementById("mailAddress").value;
 
@@ -195,10 +207,13 @@ updateMailVisibility(); // 初期表示にも対応
       const popup = document.createElement("div");
       popup.className = "alarm-popup";
       popup.innerHTML = `
-        <div class="alarm-title">${labelWithIcon}</div>
-        <div class="alarm-time">${alarm.time.slice(0, 5)}</div>
-        <button class="stop-button">停止</button>
-      `;
+  <div class="alarm-title">${labelWithIcon}</div>
+  <div class="alarm-time">${alarm.time.slice(0, 5)}</div>
+  <button class="stop-button">停止</button>
+  <div style="margin-top:10px;">
+    <a href="${stopLink}" style="color:#f00;">🔗 停止リンク</a>
+  </div>
+`;
       document.body.appendChild(popup);
 
       alarmAudio.src = alarm.sound;
@@ -236,6 +251,12 @@ updateMailVisibility(); // 初期表示にも対応
         console.log(`アラーム ${alarm.id} を停止しました`);
       };
     }
-  </script>
+    
+    function updateMailVisibility() {
+  const isMail = notifySelector.value === "mail";
+  mailLabel.classList.toggle("hidden", !isMail);
+  mailAddressSelector.classList.toggle("hidden", !isMail);
+}
+      </script>
 </body>
 </html>

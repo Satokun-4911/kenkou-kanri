@@ -28,12 +28,20 @@ exports.handler = async (event) => {
 
   // Slack通知
   if (type === "slack") {
-    await fetch(process.env.SLACK_WEBHOOK_URL, {
+  try {
+    const res = await fetch(process.env.SLACK_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: message })
     });
+    console.log("Slack通知ステータス:", res.status);
+    const result = await res.text();
+    console.log("Slack通知レスポンス:", result);
+    if (!res.ok) throw new Error("Slack通知失敗");
+  } catch (err) {
+    console.error("Slack通知エラー:", err);
   }
+}
 
   // メール通知
   if (type === "mail") {
